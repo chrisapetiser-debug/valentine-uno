@@ -1,0 +1,743 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>My Valentine ❤️</title>
+
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:'Poppins',sans-serif;
+}
+
+body{
+    min-height:100vh;
+    background: linear-gradient(135deg, 
+        #ff9ec6 0%, 
+        #ff6fa5 30%, 
+        #ff4e88 60%, 
+        #ff2e63 100%
+    );
+    overflow-x:hidden;
+}
+
+
+/* SECTION */
+section{
+    width:100%;
+    min-height:100vh;
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    align-items:center;
+    text-align:center;
+    padding:20px;
+}
+
+/* PAGE 1 */
+#valentinePage{
+    color:white;
+}
+
+#valentinePage h1{
+    font-size:clamp(1.8rem,5vw,2.5rem);
+    margin-bottom:40px;
+    animation:fadeIn 1.2s ease;
+}
+
+.btnContainer{
+    display:flex;
+    gap:20px;
+    flex-wrap:wrap;
+    justify-content:center;
+}
+
+button{
+    padding:12px 30px;
+    border:none;
+    border-radius:40px;
+    font-size:16px;
+    cursor:pointer;
+    transition:0.3s;
+    min-width:120px;
+}
+
+#yesBtn{
+    background:white;
+    color:#ff4e88;
+    font-weight:bold;
+}
+
+#yesBtn:hover{
+    transform:scale(1.08);
+}
+
+#noBtn{
+    background:black;
+    color:white;
+    position:relative;
+}
+
+/* MAIN WEBSITE */
+#mainWebsite{
+    display:none;
+    flex-direction:column;
+    align-items:center;
+    padding:30px 15px;
+    gap:25px;
+}
+
+/* LOVE COUNTER */
+.counter{
+    background:rgba(255,255,255,0.2);
+    backdrop-filter:blur(10px);
+    padding:15px 20px;
+    border-radius:20px;
+    color:white;
+    font-size:14px;
+    width:100%;
+    max-width:500px;
+}
+
+/* POSTCARD */
+.postcard{
+    background:white;
+    padding:25px;
+    border-radius:20px;
+    width:100%;
+    max-width:500px;
+    box-shadow:0 10px 25px rgba(0,0,0,0.2);
+}
+
+.postcard h2{
+    color:#ff4e88;
+    margin-bottom:10px;
+}
+
+.postcard p{
+    text-align: justify;
+    line-height: 1.6;
+}
+
+
+/* SLIDER */
+.slider{
+    width:100%;
+    max-width:500px;
+    overflow:hidden;
+    position:relative;
+}
+
+.slides{
+    display:flex;
+    transition:transform 0.7s ease-in-out;
+    align-items:center;
+}
+
+/* POLAROID EFFECT */
+.slides img{
+    min-width:100%;
+    width:90%;
+    margin:20px auto;
+    padding:15px 15px 50px 15px; /* bawah lebih besar */
+    background:white;
+    box-shadow:0 15px 30px rgba(0,0,0,0.3);
+    border-radius:5px;
+    object-fit:cover;
+    transform:rotate(-2deg);
+    transition:0.4s ease;
+}
+
+/* Hover effect biar hidup */
+.slides img:hover{
+    transform:rotate(0deg) scale(1.03);
+}
+
+
+/* NAV BUTTON */
+.navBtn{
+    position:absolute;
+    top:50%;
+    transform:translateY(-50%);
+    background:rgba(0,0,0,0.5);
+    color:white;
+    border:none;
+    font-size:18px;
+    padding:8px 12px;
+    cursor:pointer;
+    border-radius:50%;
+}
+
+.prev{ left:10px; }
+.next{ right:10px; }
+
+/* CONFETTI LOVE */
+.loveConfetti{
+    position:fixed;
+    top:-30px;
+    font-size:20px;
+    animation:fall linear forwards;
+    pointer-events:none;
+    z-index:9999;
+}
+
+@keyframes fall{
+    to{
+        transform:translateY(110vh) rotate(360deg);
+        opacity:0;
+    }
+}
+
+
+/* MOBILE */
+@media (max-width:480px){
+    .postcard{ font-size:14px; }
+    .counter{ font-size:13px; }
+    .navBtn{ font-size:16px; padding:6px 10px; }
+}
+
+/* ===== STAR MODE ===== */
+
+body.night-mode{
+    background: radial-gradient(circle at top,#0f2027,#203a43,#2c5364);
+    transition:1s ease;
+}
+
+/* Bintang layer */
+.stars{
+    position:fixed;
+    width:100%;
+    height:100%;
+    top:0;
+    left:0;
+    pointer-events:none;
+    background:url("https://www.transparenttextures.com/patterns/stardust.png");
+    opacity:0;
+    transition:1s ease;
+    z-index:0;
+}
+
+body.night-mode .stars{
+    opacity:0.5;
+    animation:moveStars 60s linear infinite;
+}
+
+@keyframes moveStars{
+    from{transform:translate(0,0);}
+    to{transform:translate(-500px,-500px);}
+}
+
+/* Toggle Button */
+.toggleNight{
+    padding:10px 20px;
+    background:white;
+    color:#ff4e88;
+    border:none;
+    border-radius:30px;
+    cursor:pointer;
+    font-weight:bold;
+    transition:0.3s;
+}
+
+.toggleNight:hover{
+    transform:scale(1.08);
+}
+
+/* ===== IMPORTANT DATES ===== */
+.importantContainer{
+    position:fixed;
+    top:20px;
+    right:20px;
+    z-index:9998;
+    text-align:right;
+    display:none; /* ⬅️ TAMBAHKAN INI */
+}
+
+/* ===== TOP RIGHT CONTROLS ===== */
+
+.importantContainer{
+    position:fixed;
+    top:20px;
+    right:20px;
+    z-index:9998;
+    text-align:right;
+}
+
+.topButtons{
+    display:flex;
+    gap:8px;
+    justify-content:flex-end;
+}
+
+.miniBtn{
+    padding:8px 18px;
+    border-radius:30px; /* ini bikin oval / pill */
+    border:none;
+    background:white;
+    color:#ff4e88;
+    font-size:14px;
+    font-weight:bold;
+    cursor:pointer;
+    transition:0.3s;
+    box-shadow:0 5px 15px rgba(0,0,0,0.2);
+}
+
+.miniBtn:hover{
+    transform:scale(1.05);
+}
+
+
+/* Panel tetap sama */
+.importantPanel{
+    margin-top:10px;
+    background:rgba(255,255,255,0.95);
+    backdrop-filter:blur(10px);
+    padding:15px;
+    border-radius:15px;
+    box-shadow:0 10px 25px rgba(0,0,0,0.2);
+    display:none;
+    width:240px;
+    font-size:13px;
+    color:#333;
+}
+
+.importantToggle{
+    background:white;
+    color:#ff4e88;
+    border:none;
+    padding:8px 18px;
+    border-radius:25px;
+    font-weight:bold;
+    cursor:pointer;
+    transition:0.3s;
+}
+
+.importantToggle:hover{
+    transform:scale(1.08);
+}
+
+.importantPanel{
+    margin-top:10px;
+    background:rgba(255,255,255,0.95);
+    backdrop-filter:blur(10px);
+    padding:15px;
+    border-radius:15px;
+    box-shadow:0 10px 25px rgba(0,0,0,0.2);
+    display:none;
+    width:240px;
+    font-size:13px;
+    color:#333;
+}
+
+.importantPanel h4{
+    margin-bottom:8px;
+    color:#ff4e88;
+}
+
+.countItem{
+    margin-bottom:10px;
+}
+
+@keyframes fadeIn{
+    from{opacity:0; transform:translateY(-20px);}
+    to{opacity:1; transform:translateY(0);}
+}
+
+/* FUTURE MESSAGE BUTTON */
+.futureButton{
+    padding:12px 25px;
+    background:white;
+    color:#ff4e88;
+    border:none;
+    border-radius:30px;
+    font-weight:bold;
+    cursor:pointer;
+    transition:0.3s;
+}
+
+.futureButton:hover{
+    transform:scale(1.08);
+}
+
+/* FUTURE MODAL */
+.futureModal{
+    position:fixed;
+    inset:0;
+    background:rgba(0,0,0,0.7);
+    display:none;
+    justify-content:center;
+    align-items:center;
+    padding:20px;
+    z-index:10000;
+}
+
+.futureContent{
+    background:white;
+    color:#333;
+    padding:30px;
+    border-radius:20px;
+    max-width:500px;
+    text-align:center;
+    animation:fadeIn 0.5s ease;
+}
+
+.futureContent h2{
+    color:#ff4e88;
+    margin-bottom:15px;
+}
+
+.futureContent p{
+    text-align:justify;
+    line-height:1.6;
+    margin-bottom:20px;
+}
+
+.futureContent button{
+    padding:10px 20px;
+    background:#ff4e88;
+    color:white;
+    border:none;
+    border-radius:20px;
+    cursor:pointer;
+}
+
+.futureContent button:hover{
+    background:#ff2e63;
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="stars"></div>
+
+<div class="importantContainer">
+
+    <div class="topButtons">
+    <button id="nightToggle" class="miniBtn">🌙 Dark</button>
+    <button id="futureBtn" class="miniBtn">💌 Future</button>
+    <button id="importantBtn" class="miniBtn">📅 Jadwal</button>
+
+    </div>
+
+    <div id="importantPanel" class="importantPanel">
+        <h4>Countdown Special Dates ❤️</h4>
+
+        <div class="countItem">
+            🎂 Christopher Birthday:
+            <div id="myBirthday"></div>
+        </div>
+
+        <div class="countItem">
+            🎂 Uno Birthday:
+            <div id="herBirthday"></div>
+        </div>
+
+        <div class="countItem">
+            ❤️ Anniversary:
+            <div id="anniversary"></div>
+        </div>
+    </div>
+
+</div>
+    
+</div>
+
+<!-- PAGE 1 -->
+<section id="valentinePage">
+    <h1>Will You Be My Valentine? ❤️</h1>
+    <div class="btnContainer">
+        <button id="yesBtn">YES 💖</button>
+        <button id="noBtn">NO 💔</button>
+    </div>
+</section>
+
+<!-- PAGE 2 -->
+<section id="mainWebsite">
+
+    <div class="counter" id="loveCounter">
+        Loading time together...
+    </div>
+
+    <div class="postcard">
+        <h2>Happy Valentine Sayangg ❤️</h2>
+        <p>
+        Thank you for being part of my life. Maaf aku nulis suratnya lewat website tapi aku pengen yang beda dari yang sebelumnya.
+        Aku senang bisa bertemu dengan kamu, dimana semuanya berawal dari cinlok tablo dan boom.. gaada yang expect kalau tiba-tiba bisa deket.
+        Denganmu, aku selalu belajar hal baru, entah itu persoalan tentang merawat diri masing-masing atau pelajaran baru yang baru aku dapat dari kamu.
+        Aku sadar, aku mungkin ga selamanya ada untukmu.. tetapi aku mau berjuang dan berusaha menunjukkan kasih sayang yang terbaik untuk kamu.
+        Aku akan selalu support semua pilihan kamu dan tujuanmu demi menggapai cita-cita kamu untuk sekarang dan masa yang akan mendatang..
+        Maaf kalau aku belum menujukkan sisi terbaik aku, aku juga minta maaf kalau sering membuat kamu sedih atau kecewa.. Semoga kamu suka bunga dan cheesecakenya yaa..
+        Awalnya sebenernya aku mau beli barang tapi cheesecake sepertinya opsi terbaik untukmu. Terima kasih sudah menghadapi sikap-sikap anehku yang freak dan gajelas, semoga kamu semakin sabar hehe
+        I love you more than words can say. I love you to the moon and back ❤️
+        Happy Valentine Sweetheart ❤️
+        </p>
+        <p2>- Your lovely boyfriend
+        Christopher or also known as ikan,dino,tikus, dan lain2nya itu </p2>
+    </div>
+
+    <div class="slider">
+        <div class="slides" id="slides">
+            <img src="uno1.jpg">
+            <img src="uno2.jpg">
+            <img src="uno3.jpg">
+            <img src="uno4.jpg">
+            <img src="uno5.jpg">
+            <img src="uno6.jpg">
+            <img src="uno7.jpg">
+            <img src="uno8.jpg">
+            <img src="uno9.jpg">
+            <img src="uno10.jpg">
+            <img src="uno11.jpg">
+            <img src="uno12.jpg">
+            <img src="uno13.jpg">
+            <img src="uno14.jpg">
+            <img src="uno15.jpg">
+            <img src="uno16.jpg">
+            <img src="uno17.jpg">
+            <img src="uno18.jpg">
+            <img src="uno19.jpeg">
+            <img src="uno20.jpeg">
+            <img src="uno21.jpeg">
+            <img src="uno22.jpeg">
+            <img src="uno23.jpeg">
+            <img src="uno24.jpeg">
+            <img src="uno25.jpeg">
+            <img src="uno26.jpeg">
+            <img src="uno27.jpeg">
+            <img src="uno28.jpeg">
+            <img src="uno29.jpeg">
+            <img src="uno30.jpeg">
+            <img src="uno31.jpeg">
+            <img src="uno32.jpeg">
+            <img src="uno33.jpeg">
+            <img src="uno34.jpeg">
+            <img src="uno35.jpeg">
+            <img src="uno36.jpeg">
+            <img src="uno37.jpeg">
+            <img src="uno38.jpeg">
+            <img src="uno39.jpeg">
+            <img src="uno40.jpeg">
+        </div>
+        <button class="navBtn prev" onclick="prevSlide()">❮</button>
+        <button class="navBtn next" onclick="nextSlide()">❯</button>
+    </div>
+
+    <audio id="bgMusic" loop>
+        <source src="You're Still The One Instrumental.mp3" type="audio/mpeg">
+    </audio>
+
+</section>
+
+<div id="futureMessage" class="futureModal">
+    <div class="futureContent">
+        <h2>To My Love, From The Future ❤️</h2>
+        <p>
+        If you're reading this, I hope we're still together.
+        I hope we survived every misunderstanding And
+        every overthinking night.
+
+        I hope we still laugh at the same jokes.
+        I hope we still choose each other every single day.
+
+        And if life became hard…
+        I hope we remembered why we started.
+
+        No matter when you read this —
+        I still love you.
+        Always.
+        </p>
+        <button onclick="closeFuture()">Close ❤️</button>
+    </div>
+</div>
+
+<script>
+
+/* NO BUTTON MOVE */
+const noBtn = document.getElementById("noBtn");
+
+noBtn.addEventListener("mouseover",()=>{
+    const x = Math.random() * (window.innerWidth - 120);
+    const y = Math.random() * (window.innerHeight - 60);
+    noBtn.style.position="absolute";
+    noBtn.style.left = x+"px";
+    noBtn.style.top = y+"px";
+});
+
+/* YES BUTTON + CONFETTI */
+document.querySelector(".importantContainer").style.display = "block";
+document.getElementById("yesBtn").addEventListener("click",()=>{
+    document.getElementById("valentinePage").style.display="none";
+    document.getElementById("mainWebsite").style.display="flex";
+    document.body.style.overflow="auto";
+    document.getElementById("bgMusic").play();
+
+    document.querySelector(".importantContainer").style.display = "block"; // ⬅️ ini
+
+    startLoveConfetti();
+});
+
+
+/* CONFETTI FUNCTION */
+/* LOOPING LOVE CONFETTI */
+
+function startLoveConfetti(){
+
+    setInterval(()=>{
+
+        const heart = document.createElement("div");
+        heart.classList.add("loveConfetti");
+
+        const hearts = ["💖","💕","💗","💓","💞"];
+        heart.innerHTML = hearts[Math.floor(Math.random()*hearts.length)];
+
+        heart.style.left = Math.random() * 100 + "vw";
+        heart.style.fontSize = (Math.random()*20 + 15) + "px";
+        heart.style.animationDuration = (Math.random()*3 + 4) + "s";
+
+        document.body.appendChild(heart);
+
+        setTimeout(()=>{
+            heart.remove();
+        },7000);
+
+    },300); // makin kecil = makin banyak hati
+}
+
+
+/* LOVE COUNTER */
+const startDate = new Date("2025-08-10");
+const counter = document.getElementById("loveCounter");
+
+function updateCounter(){
+    const now = new Date();
+    const diff = now - startDate;
+
+    const days = Math.floor(diff / (1000*60*60*24));
+    const weeks = Math.floor(days / 7);
+    const months = Math.floor(days / 30);
+
+    counter.innerHTML = `
+    ❤️ We've been together for:
+    <br><b>${days}</b> Days |
+    <b>${weeks}</b> Weeks |
+    <b>${months}</b> Months
+    `;
+}
+
+updateCounter();
+setInterval(updateCounter,1000);
+
+/* SLIDER */
+let index = 0;
+const slides = document.getElementById("slides");
+const total = slides.children.length;
+
+function showSlide(){
+    slides.style.transform = `translateX(-${index * 100}%)`;
+}
+
+function nextSlide(){
+    index = (index + 1) % total;
+    showSlide();
+}
+
+function prevSlide(){
+    index = (index - 1 + total) % total;
+    showSlide();
+}
+
+setInterval(nextSlide,4000);
+
+/* FUTURE MESSAGE */
+const futureBtn = document.getElementById("futureBtn");
+const futureModal = document.getElementById("futureMessage");
+
+futureBtn.addEventListener("click",()=>{
+    futureModal.style.display = "flex";
+});
+
+function closeFuture(){
+    futureModal.style.display = "none";
+}
+
+/* STAR MODE TOGGLE */
+const nightToggle = document.getElementById("nightToggle");
+
+nightToggle.addEventListener("click",()=>{
+    document.body.classList.toggle("night-mode");
+
+    if(document.body.classList.contains("night-mode")){
+        nightToggle.innerHTML = "☀️ Back To Day Mode";
+    }else{
+        nightToggle.innerHTML = "🌙 Starry Night Mode";
+    }
+});
+
+/* ===== IMPORTANT DATES TOGGLE ===== */
+
+const importantBtn = document.getElementById("importantBtn");
+const importantPanel = document.getElementById("importantPanel");
+
+importantBtn.addEventListener("click",()=>{
+    importantPanel.style.display =
+        importantPanel.style.display === "block" ? "none" : "block";
+});
+
+
+/* ===== COUNTDOWN FUNCTION ===== */
+
+function getNextDate(month, day){
+    const now = new Date();
+    let target = new Date(now.getFullYear(), month - 1, day);
+
+    if(target < now){
+        target = new Date(now.getFullYear() + 1, month - 1, day);
+    }
+
+    return target;
+}
+
+function updateCountdown(){
+
+    const now = new Date();
+
+    // ✅ TANGGAL KAMU
+    const myBday = getNextDate(9, 10); // 10 September
+
+    // ✅ TANGGAL PACAR
+    const herBday = getNextDate(11, 21); // 21 November
+
+    // ✅ ANNIVERSARY
+    const anniv = getNextDate(8, 9); // 9 Agustus
+
+    function formatTime(diff){
+        const days = Math.floor(diff / (1000*60*60*24));
+        const hours = Math.floor((diff / (1000*60*60)) % 24);
+        const minutes = Math.floor((diff / (1000*60)) % 60);
+        const seconds = Math.floor((diff / 1000) % 60);
+
+        return `${days}d ${hours}h ${minutes}m ${seconds}s`;
+    }
+
+    document.getElementById("myBirthday").innerHTML =
+        formatTime(myBday - now);
+
+    document.getElementById("herBirthday").innerHTML =
+        formatTime(herBday - now);
+
+    document.getElementById("anniversary").innerHTML =
+        formatTime(anniv - now);
+}
+
+updateCountdown();
+setInterval(updateCountdown,1000);
+
+</script>
+
+</body>
+</html>
