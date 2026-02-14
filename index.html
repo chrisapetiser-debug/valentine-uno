@@ -193,6 +193,38 @@ button{
 
 
 /* MOBILE */
+/* ===== RESPONSIVE BUTTON FIX ===== */
+
+@media (max-width:768px){
+
+    .importantContainer{
+        top:auto;
+        right:50%;
+        bottom:20px;
+        transform:translateX(50%);
+        text-align:center;
+    }
+
+    .topButtons{
+        justify-content:center;
+        flex-wrap:wrap;
+    }
+
+    .miniBtn{
+        font-size:12px;
+        padding:8px 14px;
+    }
+
+    .importantPanel{
+        position:absolute;
+        bottom:60px;
+        right:50%;
+        transform:translateX(50%);
+        width:260px;
+    }
+
+}
+
 @media (max-width:480px){
     .postcard{ font-size:14px; }
     .counter{ font-size:13px; }
@@ -253,7 +285,7 @@ body.night-mode .stars{
     right:20px;
     z-index:9998;
     text-align:right;
-    display:none; /* ⬅️ TAMBAHKAN INI */
+    display:none;
 }
 
 /* ===== TOP RIGHT CONTROLS ===== */
@@ -575,8 +607,6 @@ document.getElementById("yesBtn").addEventListener("click",()=>{
     document.getElementById("mainWebsite").style.display="flex";
     document.body.style.overflow="auto";
     document.getElementById("bgMusic").play();
-
-    document.querySelector(".importantContainer").style.display = "block"; // ⬅️ ini
 
     startLoveConfetti();
 });
